@@ -1,0 +1,19 @@
+extends layout
+
+block append config
+  - page_title = 'Menu'
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/style2.css')
+
+block append wrapper
+  script(src='/javascripts/removeBlur.js')
+
+block nav
+  .nav__main
+    a(class="logoName" href='/menuAdmin')= title
+    a(class="sign-in-button" href='/signIn') Salir
+
+block content
+  .menu__main
+    include blocks/menu

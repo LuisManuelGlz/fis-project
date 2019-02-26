@@ -1,0 +1,17 @@
+extends layout
+
+block append config
+  - page_title = 'Inicio'
+
+block append wrapper
+  script(src='/javascripts/removeBlur.js')
+
+block nav
+  .nav__main
+    a(class="logoName" href='/')= title
+    a(class="sign-in-button" href='/signIn') Iniciar Sesi&oacute;n
+
+
+block content
+  p Bienbenido a #{title}
+

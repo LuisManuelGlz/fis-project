@@ -1,0 +1,9 @@
+.bg {
+  background: url(../images/bg-admin.jpg);
+  background-size: cover;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  position: fixed; }
+
+/*# sourceMappingURL=style2.css.map */

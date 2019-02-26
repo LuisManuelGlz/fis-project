@@ -1,0 +1,11 @@
+.form__wrapper
+  form.form-data-insert(method="post")
+    h2= form_title
+    | Nombre
+    input(type="text", class="name" name="name")
+    br
+    | Correo
+    input(type="text", class="email" name="email")
+    br
+    input(type="submit" value="Continuar")
+    br

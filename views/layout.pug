@@ -1,0 +1,16 @@
+doctype html
+html
+  block config
+    include config/config
+  
+  head
+    block head
+      title= page_title + ' | ' + title
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    block wrapper
+      .bg
+      .wrapper__main
+        block nav
+        block content

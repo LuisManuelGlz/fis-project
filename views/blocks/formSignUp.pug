@@ -1,0 +1,19 @@
+.form__wrapper
+  form.form-sign-up(action="/signUp/createUser" method="post")
+    input(type="radio", class="steps" name="steps") 
+    | Paso 1
+    input(type="radio", class="steps" name="steps") 
+    | Paso 2
+    input(type="radio", class="steps" name="steps") 
+    | Paso 3
+    br
+    h2 Crear cuenta
+    input(type="text", class="name" name="name" placeholder="Nombre")
+    br
+    input(type="email", class="email" name="email" placeholder="Correo")
+    br
+    input(type="password", class="password" name="password" placeholder="Contraseña")
+    br
+    input(type="submit" class="sign-up" value="Continuar")
+    br
+    a(class="terms" href="#") T&eacute;rminos y condiciones
