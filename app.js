@@ -1,16 +1,17 @@
 var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var morgan = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 var expressValidator = require('express-validator');
-var cookieParser = require('cookie-parser');
 var createError = require('http-errors');
-var morgan = require('morgan');
-var path = require('path');
 
 var { mongoose } = require('./data/database');
 
 var indexRouter = require('./routes/index');
 var signIn = require('./routes/signIn');
 var signUp = require('./routes/signUp');
+var confirmation = require('./routes/confirmation');
 var menuAdmin = require('./routes/menuAdmin');
 var createUserAdmin = require('./routes/createUserAdmin');
 var updateUserAdmin = require('./routes/updateUserAdmin');
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/signIn', signIn);
 app.use('/signUp', signUp);
+app.use('/confirmation', confirmation);
 app.use('/menuAdmin', menuAdmin);
 app.use('/createUserAdmin', createUserAdmin);
 app.use('/updateUserAdmin', updateUserAdmin);

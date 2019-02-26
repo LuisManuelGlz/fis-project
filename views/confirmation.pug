@@ -1,1 +1,9 @@
 extends layout
+
+block append wrapper
+  script(src="/javascripts/addBlur.js")
+
+block content
+  h2= type
+  p= msg
+  p= errors

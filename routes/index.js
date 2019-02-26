@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/confirmation/*', function(req, res, next) {
-  res.render('signIn');
-  next();
-}, userController.confirmation); 
+// router.post('/confirmation/*', function(req, res, next) {
+//   res.render('signIn');
+//   next();
+// }, userController.confirmation); 
 
 module.exports = router;
