@@ -12,8 +12,7 @@
   position: fixed; }
 
 .blur-me {
-  filter: blur(10px);
-  transition: filter 10s linear; }
+  filter: blur(10px); }
 
 .wrapper__main {
   position: fixed;
@@ -44,6 +43,23 @@
   display: flex;
   justify-content: center;
   text-align: center; }
+  .form__main .form-sign-in .steps,
+  .form__main .form-sign-up .steps {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    color: #3A3A3A; }
+    .form__main .form-sign-in .steps input[type="radio"],
+    .form__main .form-sign-up .steps input[type="radio"] {
+      opacity: 0.5; }
+    .form__main .form-sign-in .steps .step,
+    .form__main .form-sign-up .steps .step {
+      width: 20px;
+      height: 20px; }
+  .form__main .form-sign-in hr,
+  .form__main .form-sign-up hr {
+    transform: rotate(90deg); }
   .form__main .form-sign-in h2,
   .form__main .form-sign-up h2 {
     padding: 30px 0 30px;

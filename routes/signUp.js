@@ -5,5 +5,6 @@ var userController = require('../controllers/userController');
 
 router.get('/', userController.useTemplate);
 router.post('/createUser', userController.createUser);
+// router.get('/confirmation/*', userController.confirmation);
 
 module.exports = router;
