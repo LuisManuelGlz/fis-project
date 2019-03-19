@@ -1,5 +1,5 @@
 .form__wrapper
-  form.form-log-in(method="post")
+  form.form-log-in(action="/logIn/validation" method="post")
     input(type="radio", class="user" name="userType")
     | Usuario
     input(type="radio", class="admin" name="userType") 
@@ -8,7 +8,7 @@
     h2 Iniciar sesi&oacute;n
     input(type="text", class="email" name="email" placeholder="Correo")
     br
-    input(type="text", class="password" name="password" placeholder="Contraseña")
+    input(type="password", class="password" name="password" placeholder="Contraseña")
     br
     input(type="hidden" name="token")
     input(type="submit" class="log-in" value="Iniciar sesión")

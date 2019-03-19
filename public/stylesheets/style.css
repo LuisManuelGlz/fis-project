@@ -44,24 +44,29 @@
   justify-content: center;
   text-align: center; }
   .form__main .form-log-in .steps,
-  .form__main .form-sign-up .steps {
+  .form__main .form-sign-up .steps,
+  .form__main .form-data-insert .steps {
     width: 300px;
     display: flex;
     justify-content: space-around;
     font-size: 12px;
     color: #3A3A3A; }
     .form__main .form-log-in .steps input[type="radio"],
-    .form__main .form-sign-up .steps input[type="radio"] {
+    .form__main .form-sign-up .steps input[type="radio"],
+    .form__main .form-data-insert .steps input[type="radio"] {
       opacity: 0.5; }
     .form__main .form-log-in .steps .step,
-    .form__main .form-sign-up .steps .step {
+    .form__main .form-sign-up .steps .step,
+    .form__main .form-data-insert .steps .step {
       width: 20px;
       height: 20px; }
   .form__main .form-log-in hr,
-  .form__main .form-sign-up hr {
+  .form__main .form-sign-up hr,
+  .form__main .form-data-insert hr {
     transform: rotate(90deg); }
   .form__main .form-log-in h2,
-  .form__main .form-sign-up h2 {
+  .form__main .form-sign-up h2,
+  .form__main .form-data-insert h2 {
     padding: 30px 0 30px;
     color: #3A3A3A; }
   .form__main .form-log-in .name,
@@ -69,7 +74,10 @@
   .form__main .form-log-in .password,
   .form__main .form-sign-up .name,
   .form__main .form-sign-up .email,
-  .form__main .form-sign-up .password {
+  .form__main .form-sign-up .password,
+  .form__main .form-data-insert .name,
+  .form__main .form-data-insert .email,
+  .form__main .form-data-insert .password {
     width: 230px;
     height: 40px;
     margin-top: 20px;
@@ -80,8 +88,13 @@
     filter: blur(0.3px) brightness(60%) opacity(40%); }
   .form__main .form-log-in .log-in,
   .form__main .form-log-in .sign-up,
+  .form__main .form-log-in .confirm,
   .form__main .form-sign-up .log-in,
-  .form__main .form-sign-up .sign-up {
+  .form__main .form-sign-up .sign-up,
+  .form__main .form-sign-up .confirm,
+  .form__main .form-data-insert .log-in,
+  .form__main .form-data-insert .sign-up,
+  .form__main .form-data-insert .confirm {
     width: 250px;
     height: 40px;
     margin: 30px 0 10px;
@@ -96,7 +109,10 @@
   .form__main .form-log-in .terms,
   .form__main .form-sign-up .forgot-password,
   .form__main .form-sign-up .no-account,
-  .form__main .form-sign-up .terms {
+  .form__main .form-sign-up .terms,
+  .form__main .form-data-insert .forgot-password,
+  .form__main .form-data-insert .no-account,
+  .form__main .form-data-insert .terms {
     color: #FFFFFF;
     font-size: 15px;
     text-decoration: none;
@@ -123,7 +139,7 @@
     .menu__main .menu .item .delete-user {
       background: rgba(178, 62, 62, 0.85);
       color: #C1C1C1; }
-    .menu__main .menu .item .query-user {
+    .menu__main .menu .item .find-user {
       background: rgba(37, 94, 151, 0.85);
       color: #C1C1C1; }
 

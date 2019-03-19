@@ -17,5 +17,9 @@ block nav
 block content
   .form__main
     - form_title = 'Modificar usuario'
-    include blocks/formDataInsert
-
+    .form__wrapper
+      form.form-data-insert(action="/updateUserAdmin" method="post")
+        h2= form_title
+        input(type="text", class="email" name="email" placeholder="Correo")
+        br
+        input(type="submit" class="confirm" value="Confirmar")

@@ -19,7 +19,9 @@ var menuAdmin = require('./routes/menuAdmin');              // admin
 var createUserAdmin = require('./routes/createUserAdmin');
 var updateUserAdmin = require('./routes/updateUserAdmin');
 var deleteUserAdmin = require('./routes/deleteUserAdmin');
-var queryUserAdmin = require('./routes/queryUserAdmin');
+var findUserAdmin = require('./routes/findUserAdmin');
+var formDataInsert = require('./routes/formDataInsert');
+
 var usersRouter = require('./routes/users');
 
 // server creation
@@ -58,7 +60,9 @@ app.use('/menuAdmin', menuAdmin);               // admin
 app.use('/createUserAdmin', createUserAdmin);
 app.use('/updateUserAdmin', updateUserAdmin);
 app.use('/deleteUserAdmin', deleteUserAdmin);
-app.use('/queryUserAdmin', queryUserAdmin);
+app.use('/findUserAdmin', findUserAdmin);
+app.use('/formDataInsert', formDataInsert);
+
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

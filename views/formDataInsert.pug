@@ -1,10 +1,9 @@
 extends layout
 
 block append config
-  - page_title = 'Crear'
+  - page_title = 'Modificar'
 
 block append head
-  link(rel='stylesheet', href='/stylesheets/style1.css')
   link(rel='stylesheet', href='/stylesheets/style2.css')
 
 block append wrapper
@@ -17,14 +16,14 @@ block nav
 
 block content
   .form__main
-    - form_title = 'Crear usuario'
+    - form_title = 'Modificar usuario'
     .form__wrapper
-      form.form-data-insert(action="/createUserAdmin/createUser" method="post")
+      form.form-data-insert(action="/updateUserAdmin/formDataInsert" method="post")
         h2= form_title
         input(type="text", class="name" name="name" placeholder="Nombre")
         br
         input(type="text", class="email" name="email" placeholder="Correo")
         br
-        input(type="password", class="password" name="password"  placeholder="Contraseña")
+        input(type="text", class="password" name="password"  placeholder="Contraseña")
         br
-        input(type="submit" class="confirm" value="Confirmar")
+        input(type="submit" class="confirm" value="Guardar")

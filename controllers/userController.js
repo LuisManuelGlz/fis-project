@@ -6,25 +6,34 @@ var Token = require('../models/token');
 
 var UserController = {};
 
-UserController.useTemplate = function(req, res, next) {
+UserController.useLogInTemplate = function(req, res, next) {
+    res.render('logIn', {});
+}; // end useTamplate
+
+UserController.useSignUpTemplate = function(req, res, next) {
     res.render('signUp', {});
 }; // end useTamplate
 
+UserController.validateUser = function(req, res, next) {
+    User.findOne({ email: req.body.email }, function(err, user) {
+        if (!user) {
+            return res.status(401).send({ msg: 'La dirección de correo ' + req.body.email + ' no está asociada con ninguna cuenta.' });
+        } // end if
+
+        if (req.body.password != user.password) {
+            return res.status(401).send({ msg: 'Correo o contrasena inválidos.' });
+        } // end if
+
+        if (!user.isVerified) {
+            return res.status(401).send({ msg: 'Tu cuenta no está verificada.' });
+        } // end if
+
+        res.send({ user: user.toJSON() });
+        console.log('An user is log in\n\n' + user.name);
+    });
+}; // end validateUser
+
 UserController.createUser = function(req, res, next) {
-    // req.assert('name', 'El nombre no puede quedar vacío').notEmpty();
-    // req.assert('email', 'El correo no es válido').isEmail();
-    // req.assert('email', 'El correo no puede quedar vacío').notEmpty();
-    // req.assert('password', 'La contraseña debe de tener al menos 4 caracteres').len(4);
-    // req.sanitize('email').normalizeEmail({ remove_dots: false });
-    
-    // // verificación de errores    
-    // var errors = req.validationErrors();
-    // if (errors) { 
-    //     // res.redirect('/confirmation');
-    //     // return res.status(400).redirect('/confirmation');
-    //     return res.status(400).send(errors); 
-    // } // end if
-    
     // nos aseguramos de que no exista otra cuenta
     User.findOne({ email: req.body.email }, function (err, user) {
         if (user) { // si el usuario (cuenta) existe
@@ -34,7 +43,9 @@ UserController.createUser = function(req, res, next) {
         // Create and save the user
         user = new User({ name: req.body.name, email: req.body.email, password: req.body.password });
         user.save(function (err) {
-            if (err) { return res.status(500).render('confirmation', { msg: err.message }); }
+            if (err) { 
+                return res.status(500).render('confirmation', { msg: err.message }); 
+            }
     
             // crea un token verificado para este usuario
             var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
@@ -45,17 +56,19 @@ UserController.createUser = function(req, res, next) {
                     return res.status(500).render('confirmation', { msg: err.message }); 
                 } // end if
     
-                // envia correo
+                // crea detalles del correo (crea correo vaya)
                 var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: "fis.app19@gmail.com", pass: "thisismysecret1084" } });
                 var mailOptions = { from: 'contact@fisapp.com', to: user.email, subject: 'Verificación de correo', text: 'Hola!\n\n' + 'Por favor verifica tu cuanta dando click al link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n\n\nNo te preocupes, no es virus :D' };
                 
+                // envía correo
                 transporter.sendMail(mailOptions, function (err) {
                     if (err) { 
                         return res.status(500).render('confirmation', { msg: err.message}); 
                     } // end if
-                    res.status(200).render('confirmation', { msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' } );
+                    res.status(200).render('confirmation', { msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' });
                 }); // end sendMail
             }); // end save
+            console.log('User inserted:\n\n' + user);
         }); // end save
     }); // findOne
 }; // end createUser
@@ -66,9 +79,9 @@ UserController.confirmation = function(req, res, next) {
     var tokenUser = partsTokenUrl[2];
 
     // nos aseguramos de que exista el token
-    Token.findOne({ token : tokenUser }, function(err, token) {
+    Token.findOne({ token: tokenUser }, function(err, token) {
         if (!token) {
-            return res.status(400).render('confirmation', { type : 'not-verified', msg : 'No se ha podido encontrar el token. Tu token ha expirado.' });
+            return res.status(400).render('confirmation', { type: 'not-verified', msg: 'No se ha podido encontrar el token. Tu token ha expirado.' });
         } // end if
 
         // si encontramos un token, encontramos un usuario
@@ -83,7 +96,9 @@ UserController.confirmation = function(req, res, next) {
             // verificar y guardar usuario
             user.isVerified = true;
             user.save(function (err) {
-                if (err) { return res.status(500).render('confirmation', { msg: err.message }); }
+                if (err) { 
+                    return res.status(500).render('confirmation', { msg: err.message }); 
+                } // end if
                 res.status(200).render('confirmation', { msg: "La cuenta ha sido verificada. Por favor, inicia sesión." });
             });
         }); // end findOne
