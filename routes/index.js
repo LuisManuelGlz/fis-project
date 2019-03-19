@@ -5,11 +5,11 @@ var userController = require('../controllers/userController')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', {});
 });
 
 // router.post('/confirmation/*', function(req, res, next) {
-//   res.render('signIn');
+//   res.render('logIn');
 //   next();
 // }, userController.confirmation); 
 

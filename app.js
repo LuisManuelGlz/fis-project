@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var http = require('http');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
@@ -8,23 +9,32 @@ var createError = require('http-errors');
 
 var { mongoose } = require('./data/database');
 
-var indexRouter = require('./routes/index');
-var signIn = require('./routes/signIn');
+// we define routes
+var indexRouter = require('./routes/index');                // user
+var logIn = require('./routes/logIn');
 var signUp = require('./routes/signUp');
 var confirmation = require('./routes/confirmation');
-var menuAdmin = require('./routes/menuAdmin');
+
+var menuAdmin = require('./routes/menuAdmin');              // admin
 var createUserAdmin = require('./routes/createUserAdmin');
 var updateUserAdmin = require('./routes/updateUserAdmin');
 var deleteUserAdmin = require('./routes/deleteUserAdmin');
 var queryUserAdmin = require('./routes/queryUserAdmin');
 var usersRouter = require('./routes/users');
 
+// server creation
+var port = process.env.PORT || 3000;
 var app = express();
+var server = http.createServer(app);
+server.listen(port, function() {
+  console.log('Server listening at port %d', port);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,11 +48,13 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/signIn', signIn);
+// we use routes
+app.use('/', indexRouter);                      // user
+app.use('/logIn', logIn);
 app.use('/signUp', signUp);
 app.use('/confirmation', confirmation);
-app.use('/menuAdmin', menuAdmin);
+
+app.use('/menuAdmin', menuAdmin);               // admin
 app.use('/createUserAdmin', createUserAdmin);
 app.use('/updateUserAdmin', updateUserAdmin);
 app.use('/deleteUserAdmin', deleteUserAdmin);

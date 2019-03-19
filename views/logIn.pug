@@ -1,10 +1,7 @@
 extends layout
 
 block append config
-  - page_title = 'Crear'
-
-block append head
-  link(rel='stylesheet', href='/stylesheets/style2.css')
+  - page_title = 'Iniciar sesión'
 
 block append wrapper
   script(src='/javascripts/addBlur.js')
@@ -12,9 +9,9 @@ block append wrapper
 
 block nav
   .nav__main
-    a(class="logoName" href='/menuAdmin')= title
+    a(class="logoName" href='/')= title
 
 block content
   .form__main
-    - form_title = 'Crear usuario'
-    include blocks/formDataInsert
+    include blocks/formLogIn
+  a(href="/menuAdmin") [Puerta temporal]

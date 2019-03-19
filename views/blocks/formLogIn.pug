@@ -1,0 +1,18 @@
+.form__wrapper
+  form.form-log-in(method="post")
+    input(type="radio", class="user" name="userType")
+    | Usuario
+    input(type="radio", class="admin" name="userType") 
+    | Admin
+    br
+    h2 Iniciar sesi&oacute;n
+    input(type="text", class="email" name="email" placeholder="Correo")
+    br
+    input(type="text", class="password" name="password" placeholder="Contraseña")
+    br
+    input(type="hidden" name="token")
+    input(type="submit" class="log-in" value="Iniciar sesión")
+    br
+    a(class="forgot-password" href="#") Olvid&eacute; mi contrase&ntilde;a
+    br
+    a(class="no-account" href="/signUp") No tengo una cuenta

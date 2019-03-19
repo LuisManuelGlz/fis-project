@@ -2,7 +2,7 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 
 var User = require('../models/user');
-var Token = require('../models/token')
+var Token = require('../models/token');
 
 var UserController = {};
 

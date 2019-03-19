@@ -47,7 +47,7 @@
             color: $text-in-light;
         }
     
-        .sign-in-button {
+        .log-in-button {
             background: $button-color;
             color: $text-in-dark;
             border-radius: 20px;
@@ -60,7 +60,7 @@
     justify-content: center;
     text-align: center;
     
-    .form-sign-in,
+    .form-log-in,
     .form-sign-up {
         .steps {
             width: 300px;
@@ -103,7 +103,7 @@
             filter: blur(.3px) brightness(60%) opacity(40%);
         }
         
-        .sign-in,
+        .log-in,
         .sign-up {
             width: 250px;
             height: 40px;

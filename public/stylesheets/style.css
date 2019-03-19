@@ -34,7 +34,7 @@
       text-decoration: none; }
     .wrapper__main .nav__main .logoName {
       color: #3A3A3A; }
-    .wrapper__main .nav__main .sign-in-button {
+    .wrapper__main .nav__main .log-in-button {
       background: #3A3A3A;
       color: #C1C1C1;
       border-radius: 20px; }
@@ -43,30 +43,30 @@
   display: flex;
   justify-content: center;
   text-align: center; }
-  .form__main .form-sign-in .steps,
+  .form__main .form-log-in .steps,
   .form__main .form-sign-up .steps {
     width: 300px;
     display: flex;
     justify-content: space-around;
     font-size: 12px;
     color: #3A3A3A; }
-    .form__main .form-sign-in .steps input[type="radio"],
+    .form__main .form-log-in .steps input[type="radio"],
     .form__main .form-sign-up .steps input[type="radio"] {
       opacity: 0.5; }
-    .form__main .form-sign-in .steps .step,
+    .form__main .form-log-in .steps .step,
     .form__main .form-sign-up .steps .step {
       width: 20px;
       height: 20px; }
-  .form__main .form-sign-in hr,
+  .form__main .form-log-in hr,
   .form__main .form-sign-up hr {
     transform: rotate(90deg); }
-  .form__main .form-sign-in h2,
+  .form__main .form-log-in h2,
   .form__main .form-sign-up h2 {
     padding: 30px 0 30px;
     color: #3A3A3A; }
-  .form__main .form-sign-in .name,
-  .form__main .form-sign-in .email,
-  .form__main .form-sign-in .password,
+  .form__main .form-log-in .name,
+  .form__main .form-log-in .email,
+  .form__main .form-log-in .password,
   .form__main .form-sign-up .name,
   .form__main .form-sign-up .email,
   .form__main .form-sign-up .password {
@@ -78,9 +78,9 @@
     border: 2px solid #707070;
     border-radius: 20px;
     filter: blur(0.3px) brightness(60%) opacity(40%); }
-  .form__main .form-sign-in .sign-in,
-  .form__main .form-sign-in .sign-up,
-  .form__main .form-sign-up .sign-in,
+  .form__main .form-log-in .log-in,
+  .form__main .form-log-in .sign-up,
+  .form__main .form-sign-up .log-in,
   .form__main .form-sign-up .sign-up {
     width: 250px;
     height: 40px;
@@ -91,9 +91,9 @@
     border: 2px solid #3A3A3A;
     border-radius: 20px;
     filter: blur(0.5px); }
-  .form__main .form-sign-in .forgot-password,
-  .form__main .form-sign-in .no-account,
-  .form__main .form-sign-in .terms,
+  .form__main .form-log-in .forgot-password,
+  .form__main .form-log-in .no-account,
+  .form__main .form-log-in .terms,
   .form__main .form-sign-up .forgot-password,
   .form__main .form-sign-up .no-account,
   .form__main .form-sign-up .terms {
