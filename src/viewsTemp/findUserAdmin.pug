@@ -18,7 +18,7 @@ block content
   .form__main
     - form_title = 'Consultar usuario'
     .form__wrapper
-      form.form-data-insert(method="post")
+      form.form-data-insert(action="/menuAdmin/updateAdminUser" method="post")
         h2= form_title
         input(type="text", class="email" name="email" placeholder="Correo")
         br

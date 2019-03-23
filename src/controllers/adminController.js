@@ -3,35 +3,6 @@ var User = require('../models/user');
 
 var AdminController = {};
 
-// 
-// plantillas
-// 
-
-// uso de la plantilla
-AdminController.useMenuAdminTemplate = function(req, res) {
-    res.render('menuAdmin', {});
-}; // end useMenuAdminTemplate
-
-// uso de la plantilla createUserAdmin
-AdminController.useCreateUserTemplate = function(req, res) {
-    res.render('createUserAdmin', {});
-}; // end useCreateUserTemplate
-
-// uso de la plantilla updateUserAdmin
-AdminController.useUpdateUserTemplate = function(req, res) {
-    res.render('updateUserAdmin', {});
-}; // end useCreateUserTemplate
-
-// uso de la plantilla deleteUserAdmin
-AdminController.useDeleteUserTemplate = function(req, res) {
-    res.render('deleteUserAdmin', {});
-}; // end useCreateUserTemplate
-
-// uso de la plantilla findUserAdmin
-AdminController.useFindUserTemplate = function(req, res) {
-    res.render('findUserAdmin', {});
-}; // end useCreateUserTemplate
-
 // log-in del admin
 AdminController.validateAdmin = function(req, res) {
     Admin.findOne({ username: req.body.email }, function(err, admin) {
@@ -64,7 +35,7 @@ AdminController.createUser = function(req, res) {
             if (err) { 
                 return res.status(500).send({ msg: err.message }); 
             } // end if
-            res.status(200).send({ msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' } );
+            res.send('ok');
 
             console.log('User inserted:\n\n' + user);
         }); // end save

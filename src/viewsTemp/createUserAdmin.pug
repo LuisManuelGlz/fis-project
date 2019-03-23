@@ -19,7 +19,7 @@ block content
   .form__main
     - form_title = 'Crear usuario'
     .form__wrapper
-      form.form-data-insert(action="/createUserAdmin/createUser" method="post")
+      form.form-data-insert(action="/menuAdmin/createUserAdmin" method="post")
         h2= form_title
         input(type="text", class="name" name="name" placeholder="Nombre")
         br

@@ -7,7 +7,7 @@ var expressValidator = require('express-validator');
 
 var app = express();
 
-// var { mongoose } = require('./data/database');
+var { mongoose } = require('./data/database');
 
 // settings
 app.set('port', process.env.PORT || 3000);
@@ -30,16 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/', require('./routes/index'));                      // user
-app.use('/logIn', require('./routes/logIn'));
-app.use('/signUp', require('./routes/signUp'));
 app.use('/confirmation', require('./routes/confirmation'));
 
 app.use('/menuAdmin', require('./routes/menuAdmin'));               // admin
-app.use('/createUserAdmin', require('./routes/createUserAdmin'));
-app.use('/updateUserAdmin', require('./routes/updateUserAdmin'));
-app.use('/deleteUserAdmin', require('./routes/deleteUserAdmin'));
-app.use('/findUserAdmin', require('./routes/findUserAdmin'));
-app.use('/formDataInsert', require('./routes/formDataInsert'));
 
 // server
 app.listen(app.get('port'), function() {

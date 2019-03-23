@@ -6,22 +6,8 @@ var Token = require('../models/token');
 
 var UserController = {};
 
-// 
-// plantillas
-// 
-
-// uso de la plantilla logIn
-UserController.useLogInTemplate = function(req, res, next) {
-    res.render('logIn', {});
-}; // end useTamplate
-
-// uso de la plantilla signUp
-UserController.useSignUpTemplate = function(req, res, next) {
-    res.render('signUp', {});
-}; // end useTamplate
-
 // log-in del usuario
-UserController.validateUser = function(req, res, next) {
+UserController.validateUser = function(req, res) {
     User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
             return res.status(401).send({ msg: 'La dirección de correo ' + req.body.email + ' no está asociada con ninguna cuenta.' });
@@ -41,7 +27,7 @@ UserController.validateUser = function(req, res, next) {
 }; // end validateUser
 
 // sign-up del usuario
-UserController.createUser = function(req, res, next) {
+UserController.createUser = function(req, res) {
     // nos aseguramos de que no exista otra cuenta
     User.findOne({ email: req.body.email }, function (err, user) {
         if (user) { // si el usuario (cuenta) existe
@@ -75,6 +61,7 @@ UserController.createUser = function(req, res, next) {
                     } // end if
                     res.status(200).render('confirmation', { msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' });
                 }); // end sendMail
+                // res.redirect('/');
             }); // end save
             console.log('User inserted:\n\n' + user);
         }); // end save

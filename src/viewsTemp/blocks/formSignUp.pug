@@ -1,21 +1,5 @@
 .form__wrapper
-  form.form-sign-up(action="/signUp/createUser" method="post")
-    //- .steps
-    //-   .step-1
-    //-     input(type="radio", class="step" name="steps" checked="checked") 
-    //-     br
-    //-     | Paso 1
-    //-   hr
-    //-   .step-2
-    //-     input(type="radio", class="step" name="steps") 
-    //-     br
-    //-     | Paso 2
-    //-   hr
-    //-   .step-3
-    //-     input(type="radio", class="step" name="steps") 
-    //-     br
-    //-     | Paso 3
-    br
+  form.form-sign-up(action="/signUp" method="post")
     h2 Crear cuenta
     input(type="text", class="name" name="name" placeholder="Nombre")
     br
