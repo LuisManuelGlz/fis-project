@@ -11,7 +11,7 @@ var app = express();
 
 // settings
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'viewsTemp'));
 app.set('view engine', 'pug');
 
 // middlewares
