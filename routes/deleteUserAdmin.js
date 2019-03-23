@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.render('deleteUserAdmin', {});
-});
+var adminController = require('../controllers/adminController');
+
+router.get('/', adminController.useDeleteUserTemplate);
+router.post('/deleteUser', adminController.deleteUser);
 
 module.exports = router;

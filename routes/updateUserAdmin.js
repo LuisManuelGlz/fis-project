@@ -4,6 +4,6 @@ var router = express.Router();
 var adminController = require('../controllers/adminController');
 
 router.get('/', adminController.useUpdateUserTemplate);
-router.post('/', adminController.updateUser);
+router.post('/updateUser', adminController.updateUser);
 
 module.exports = router;

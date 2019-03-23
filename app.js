@@ -1,38 +1,16 @@
 var express = require('express');
 var path = require('path');
-var http = require('http');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 var expressValidator = require('express-validator');
-var createError = require('http-errors');
 
-var { mongoose } = require('./data/database');
-
-// we define routes
-var indexRouter = require('./routes/index');                // user
-var logIn = require('./routes/logIn');
-var signUp = require('./routes/signUp');
-var confirmation = require('./routes/confirmation');
-
-var menuAdmin = require('./routes/menuAdmin');              // admin
-var createUserAdmin = require('./routes/createUserAdmin');
-var updateUserAdmin = require('./routes/updateUserAdmin');
-var deleteUserAdmin = require('./routes/deleteUserAdmin');
-var findUserAdmin = require('./routes/findUserAdmin');
-var formDataInsert = require('./routes/formDataInsert');
-
-var usersRouter = require('./routes/users');
-
-// server creation
-var port = process.env.PORT || 3000;
 var app = express();
-var server = http.createServer(app);
-server.listen(port, function() {
-  console.log('Server listening at port %d', port);
-});
 
-// view engine setup
+// var { mongoose } = require('./data/database');
+
+// settings
+app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -50,35 +28,20 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// we use routes
-app.use('/', indexRouter);                      // user
-app.use('/logIn', logIn);
-app.use('/signUp', signUp);
-app.use('/confirmation', confirmation);
+// routes
+app.use('/', require('./routes/index'));                      // user
+app.use('/logIn', require('./routes/logIn'));
+app.use('/signUp', require('./routes/signUp'));
+app.use('/confirmation', require('./routes/confirmation'));
 
-app.use('/menuAdmin', menuAdmin);               // admin
-app.use('/createUserAdmin', createUserAdmin);
-app.use('/updateUserAdmin', updateUserAdmin);
-app.use('/deleteUserAdmin', deleteUserAdmin);
-app.use('/findUserAdmin', findUserAdmin);
-app.use('/formDataInsert', formDataInsert);
+app.use('/menuAdmin', require('./routes/menuAdmin'));               // admin
+app.use('/createUserAdmin', require('./routes/createUserAdmin'));
+app.use('/updateUserAdmin', require('./routes/updateUserAdmin'));
+app.use('/deleteUserAdmin', require('./routes/deleteUserAdmin'));
+app.use('/findUserAdmin', require('./routes/findUserAdmin'));
+app.use('/formDataInsert', require('./routes/formDataInsert'));
 
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// server
+app.listen(app.get('port'), function() {
+  console.log('Server listening at port', app.get('port'));
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;

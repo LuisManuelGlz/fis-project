@@ -18,8 +18,14 @@ block content
   .form__main
     - form_title = 'Modificar usuario'
     .form__wrapper
-      form.form-data-insert(action="/updateUserAdmin" method="post")
+      form.form-data-insert(action="/updateUserAdmin/updateUser" method="post")
         h2= form_title
-        input(type="text", class="email" name="email" placeholder="Correo")
+        input(type="text", class="id" name="id" placeholder="Id" value="")
         br
-        input(type="submit" class="confirm" value="Confirmar")
+        input(type="text", class="name" name="name" placeholder="Nombre" value="")
+        br
+        input(type="text", class="email" name="email" placeholder="Correo" value="")
+        br
+        input(type="text", class="password" name="password"  placeholder="Contraseña" value="")
+        br
+        input(type="submit" class="confirm" value="Guardar")

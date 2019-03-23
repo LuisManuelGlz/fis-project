@@ -69,12 +69,15 @@
   .form__main .form-data-insert h2 {
     padding: 30px 0 30px;
     color: #3A3A3A; }
+  .form__main .form-log-in .id,
   .form__main .form-log-in .name,
   .form__main .form-log-in .email,
   .form__main .form-log-in .password,
+  .form__main .form-sign-up .id,
   .form__main .form-sign-up .name,
   .form__main .form-sign-up .email,
   .form__main .form-sign-up .password,
+  .form__main .form-data-insert .id,
   .form__main .form-data-insert .name,
   .form__main .form-data-insert .email,
   .form__main .form-data-insert .password {
@@ -142,5 +145,10 @@
     .menu__main .menu .item .find-user {
       background: rgba(37, 94, 151, 0.85);
       color: #C1C1C1; }
+
+.status__main {
+  padding: 5px;
+  margin-bottom: 0px;
+  background: green; }
 
 /*# sourceMappingURL=style.css.map */

@@ -6,14 +6,21 @@ var Token = require('../models/token');
 
 var UserController = {};
 
+// 
+// plantillas
+// 
+
+// uso de la plantilla logIn
 UserController.useLogInTemplate = function(req, res, next) {
     res.render('logIn', {});
 }; // end useTamplate
 
+// uso de la plantilla signUp
 UserController.useSignUpTemplate = function(req, res, next) {
     res.render('signUp', {});
 }; // end useTamplate
 
+// log-in del usuario
 UserController.validateUser = function(req, res, next) {
     User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
@@ -33,6 +40,7 @@ UserController.validateUser = function(req, res, next) {
     });
 }; // end validateUser
 
+// sign-up del usuario
 UserController.createUser = function(req, res, next) {
     // nos aseguramos de que no exista otra cuenta
     User.findOne({ email: req.body.email }, function (err, user) {
@@ -73,6 +81,7 @@ UserController.createUser = function(req, res, next) {
     }); // findOne
 }; // end createUser
 
+// verificación (token)
 UserController.confirmation = function(req, res, next) {
     var tokenUrl = req.originalUrl;
     var partsTokenUrl = tokenUrl.split('/');

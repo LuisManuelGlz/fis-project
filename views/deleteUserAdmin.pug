@@ -18,9 +18,9 @@ block content
   .form__main
     - form_title = 'Eliminar usuario'
     .form__wrapper
-      form.form-data-insert(method="post")
+      form.form-data-insert(action="/deleteUserAdmin/deleteUser" method="post")
         h2= form_title
         input(type="text", class="email" name="email" placeholder="Correo")
         br
-        input(type="submit" class="confirm" value="Confirmar")
+        input(type="submit" class="confirm" value="Eliminar")
 

@@ -91,6 +91,7 @@
             color: $text-in-light;
         }
         
+        .id,
         .name,
         .email,
         .password {
@@ -165,6 +166,19 @@
                 background: $find-color;
                 color: $text-in-dark;
             }
+        }
+    }
+}
+
+.status__main {
+    padding: 5px;
+    margin-bottom: 0px;
+
+    background: green;
+    .status__wrapper {
+        // background: red;
+        .status {
+            // background: white;
         }
     }
 }
