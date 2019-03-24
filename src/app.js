@@ -7,12 +7,12 @@ var expressValidator = require('express-validator');
 
 var app = express();
 
-var { mongoose } = require('./data/database');
+// var { mongoose } = require('./data/database');
 
 // settings
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'viewsTemp'));
-app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // middlewares
 app.use(morgan('dev'));

@@ -5,23 +5,23 @@ var adminController = require('../controllers/adminController');
 
 // GET
 router.get('/', function(req, res) {
-    res.render('menuAdmin');
+    res.render('menuAdmin', { title: 'Menú' });
 });
 
 router.get('/createUserAdmin', function(req, res) {
-    res.render('createUserAdmin');
+    res.render('createUserAdmin', { title: 'Crear usuario' });
 });
 
 router.get('/updateUserAdmin', function(req, res) {
-    res.render('updateUserAdmin');
+    res.render('updateUserAdmin', { title: 'Modificar usuario' });
 });
 
 router.get('/deleteUserAdmin', function(req, res) {
-    res.render('deleteUserAdmin');
+    res.render('deleteUserAdmin', { title: 'Eliminar usuario' });
 });
 
 router.get('/findUserAdmin', function(req, res) {
-    res.render('findUserAdmin');
+    res.render('findUserAdmin', { title: 'Buscar usuario' });
 });
 
 // POST

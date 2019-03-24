@@ -31,14 +31,14 @@ UserController.createUser = function(req, res) {
     // nos aseguramos de que no exista otra cuenta
     User.findOne({ email: req.body.email }, function (err, user) {
         if (user) { // si el usuario (cuenta) existe
-            return res.status(400).render('confirmation', { msg: 'El correo que has introducido ya está asociado con otra cuenta.' });
+            return res.status(400).send({ msg: 'El correo que has introducido ya está asociado con otra cuenta.' });
         } // end if
     
         // Create and save the user
         user = new User({ name: req.body.name, email: req.body.email, password: req.body.password });
         user.save(function (err) {
             if (err) { 
-                return res.status(500).render('confirmation', { msg: err.message }); 
+                return res.status(500).send({ msg: err.message }); 
             }
     
             // crea un token verificado para este usuario
@@ -47,7 +47,7 @@ UserController.createUser = function(req, res) {
             // guarda el token verificado
             token.save(function (err) {
                 if (err) { 
-                    return res.status(500).render('confirmation', { msg: err.message }); 
+                    return res.status(500).send({ msg: err.message }); 
                 } // end if
     
                 // crea detalles del correo (crea correo vaya)
@@ -57,9 +57,9 @@ UserController.createUser = function(req, res) {
                 // envía correo
                 transporter.sendMail(mailOptions, function (err) {
                     if (err) { 
-                        return res.status(500).render('confirmation', { msg: err.message}); 
+                        return res.status(500).send({ msg: err.message}); 
                     } // end if
-                    res.status(200).render('confirmation', { msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' });
+                    res.status(200).send({ msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' });
                 }); // end sendMail
                 // res.redirect('/');
             }); // end save
@@ -77,25 +77,25 @@ UserController.confirmation = function(req, res, next) {
     // nos aseguramos de que exista el token
     Token.findOne({ token: tokenUser }, function(err, token) {
         if (!token) {
-            return res.status(400).render('confirmation', { type: 'not-verified', msg: 'No se ha podido encontrar el token. Tu token ha expirado.' });
+            return res.status(400).send({ type: 'not-verified', msg: 'No se ha podido encontrar el token. Tu token ha expirado.' });
         } // end if
 
         // si encontramos un token, encontramos un usuario
         User.findOne({ _id: token._userId }, function(err, user) {
             if (!user) {
-                return res.status(400).render('confirmation', { msg : 'No se ha podido encontrar un usuario para este token.' });
+                return res.status(400).send({ msg : 'No se ha podido encontrar un usuario para este token.' });
             } // end if
             if (user.isVerified) {
-                return res.status(400).render('confirmation', { type: 'already-verified', msg: 'Este usuario ya ha sido verificado.' });
+                return res.status(400).send({ type: 'already-verified', msg: 'Este usuario ya ha sido verificado.' });
             } // end if
  
             // verificar y guardar usuario
             user.isVerified = true;
             user.save(function (err) {
                 if (err) { 
-                    return res.status(500).render('confirmation', { msg: err.message }); 
+                    return res.status(500).send({ msg: err.message }); 
                 } // end if
-                res.status(200).render('confirmation', { msg: "La cuenta ha sido verificada. Por favor, inicia sesión." });
+                res.status(200).send({ msg: "La cuenta ha sido verificada. Por favor, inicia sesión." });
             });
         }); // end findOne
     }); // end findOne

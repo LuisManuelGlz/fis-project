@@ -5,15 +5,15 @@ var userController = require('../controllers/userController')
 
 // GET
 router.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', { title: 'Inicio' });
 });
 
 router.get('/logIn', function(req, res) {
-  res.render('logIn');
+  res.render('logIn', { title: 'Iniciar sesión' });
 })
 
 router.get('/signUp', function(req, res) {
-  res.render('signUp');
+  res.render('signUp', { title: 'Registrarse' });
 });
 
 // POST
