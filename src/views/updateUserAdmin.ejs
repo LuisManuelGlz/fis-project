@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= title %> | ITT</title>
+    <% include partials/head %>
 </head>
 <body>
     <% include partials/navbarAdmin %>
-    <div>
-        <h2><%= title %></h2>
-        <form action="/menuAdmin/updateUserAdmin" method="post">
-            <div>
-                <label for="name">Nombre</label>
-                <input type="text" name="name">
+    <div class="container col-4">
+        <div class="card mt-5">
+            <div class="card-header text-center">
+                <h2><%= title %></h2>
             </div>
-            <div>
-                <label for="email">Correo</label>
-                <input type="text" name="email">
+            <div class="card-body">
+                <form action="/menuAdmin/updateUserAdmin" method="post">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contrase&ntilde;a</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <input type="submit" class="btn btn-info btn-block" value="<%= title %>">
+                </form>
             </div>
-            <div>
-                <label for="password">Contrase&ntilde;a</label>
-                <input type="password" name="password">
-            </div>
-            <input type="submit" value="<%= title %>">
-        </form>
+        </div>
     </div>
 </body>
 </html>
