@@ -7,7 +7,7 @@ var expressValidator = require('express-validator');
 
 var app = express();
 
-// var { mongoose } = require('./data/database');
+var { mongoose } = require('./data/database');
 
 // settings
 app.set('port', process.env.PORT || 3000);

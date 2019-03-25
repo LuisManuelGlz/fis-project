@@ -5,7 +5,7 @@ var userController = require('../controllers/userController')
 
 // GET
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Inicio' });
+  res.render('index', { title: 'Inicio', msg: '' });
 });
 
 router.get('/logIn', function(req, res) {
@@ -13,7 +13,7 @@ router.get('/logIn', function(req, res) {
 })
 
 router.get('/signUp', function(req, res) {
-  res.render('signUp', { title: 'Registrarse' });
+  res.render('signUp', { title: 'Registrarse', errors: [] });
 });
 
 // POST

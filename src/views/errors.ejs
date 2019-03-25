@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= title %> | ITT</title>
+    <title><%= title %></title>
     <% include partials/head %>
 </head>
-<body class="bg-main">
-    <% include partials/navbarUser %>
-    <div class="container col-6 p-4">
-        <% if (msg != '') { %>
-            <div class="alert alert-success mt-3 p-4">
-                <%= msg %>
+<body>
+    <div class="container-fluid">
+        <h2><%= title %> D:</h2>
+        <% errors.forEach(text => { %>
+            <div class="alert alert-danger mt-3">
+                <%= text %>
             </div>
-        <% } %>
+        <% }); %>
     </div>
 </body>
 </html>

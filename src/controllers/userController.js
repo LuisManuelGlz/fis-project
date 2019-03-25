@@ -28,17 +28,47 @@ UserController.validateUser = function(req, res) {
 
 // sign-up del usuario
 UserController.createUser = function(req, res) {
+    var { name, email, password } = req.body;
+    var errors = [];
+
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
+    } // end if
+
+    if (!email) {
+        errors.push('Por favor, escribe un correo.');
+    } // end if
+
+    if (!password) {
+        errors.push('Por favor, escribe una contraseña.');
+    } // end if
+
+    if (errors.length > 0) {
+        return res.render('signUp', {
+            title: 'Registrarse',
+            errors
+        });
+    } // end if
+
     // nos aseguramos de que no exista otra cuenta
-    User.findOne({ email: req.body.email }, function (err, user) {
+    User.findOne({ email }, function (err, user) {
         if (user) { // si el usuario (cuenta) existe
-            return res.status(400).send({ msg: 'El correo que has introducido ya está asociado con otra cuenta.' });
+            errors.push('El correo introducido ya existe.');
+            return res.status(400).render('signUp', {
+                title: 'Registrarse',
+                errors
+            });
         } // end if
     
         // Create and save the user
-        user = new User({ name: req.body.name, email: req.body.email, password: req.body.password });
+        user = new User({ name, email, password });
         user.save(function (err) {
             if (err) { 
-                return res.status(500).send({ msg: err.message }); 
+                errors.push(err);
+                return res.status(500).send({ 
+                    title: 'Error',
+                    errors 
+                }); 
             }
     
             // crea un token verificado para este usuario
@@ -56,14 +86,14 @@ UserController.createUser = function(req, res) {
                 
                 // envía correo
                 transporter.sendMail(mailOptions, function (err) {
-                    if (err) { 
-                        return res.status(500).send({ msg: err.message}); 
+                    if (err) {
+                        return res.status(500).send({ msg: err.message }); 
                     } // end if
-                    res.status(200).send({ msg: 'Una verificación de correo ha sido enviada a ' + user.email + '.' });
+                    res.status(200).send('Una verificación ha sido enviada a ' + user.email + '.');
+                    // res.redirect('/');
                 }); // end sendMail
-                // res.redirect('/');
             }); // end save
-            console.log('User inserted:\n\n' + user);
+            console.log('\nUser inserted:\n\n' + user + '\n');
         }); // end save
     }); // findOne
 }; // end createUser

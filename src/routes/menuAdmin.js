@@ -5,23 +5,25 @@ var adminController = require('../controllers/adminController');
 
 // GET
 router.get('/', function(req, res) {
-    res.render('menuAdmin', { title: 'Menú' });
+    res.render('menuAdmin', { title: 'Menú', msg: '' });
 });
 
 router.get('/createUserAdmin', function(req, res) {
-    res.render('createUserAdmin', { title: 'Crear usuario' });
+    res.render('createUserAdmin', { title: 'Crear usuario', errors: [] });
 });
 
 router.get('/updateUserAdmin', function(req, res) {
-    res.render('updateUserAdmin', { title: 'Modificar usuario' });
+    res.render('updateUserAdmin', { title: 'Modificar usuario', errors: [] });
 });
 
 router.get('/deleteUserAdmin', function(req, res) {
-    res.render('deleteUserAdmin', { title: 'Eliminar usuario' });
+    res.render('deleteUserAdmin', { title: 'Eliminar usuario', users: [], errors: [] });
 });
 
+router.get('/deleteUserAdmin/delete/:id', adminController.delete);
+
 router.get('/findUserAdmin', function(req, res) {
-    res.render('findUserAdmin', { title: 'Buscar usuario' });
+    res.render('findUserAdmin', { title: 'Buscar usuario', users: [], errors: [] });
 });
 
 // POST
