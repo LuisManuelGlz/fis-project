@@ -48,7 +48,7 @@ AdminController.createUser = function(req, res) {
     
     User.findOne({ email }, function(err, user) {
         if (user) {
-            errors.push('El correo introducido ya existe.');
+            errors.push('El usuario introducido ya existe.');
             return res.status(400).render('createUserAdmin', { 
                 title: 'Crear usuario', 
                 errors
@@ -56,11 +56,11 @@ AdminController.createUser = function(req, res) {
         } // end if
 
         // creamos y guardamos el usuario
-        user = new User({ name: req.body.name, email: req.body.email, isVerified: true, password: req.body.password });
+        user = new User({ name, email, isVerified: true, password });
         user.save(function(err) {
             if (err) {
                 errors.push(err);
-                return res.status(500).render('errors', {
+                return res.status(500).send('errors', {
                     title: 'Error',
                     errors
                 });
@@ -77,37 +77,92 @@ AdminController.createUser = function(req, res) {
 
 // actualizar usuario
 AdminController.updateUser = function(req, res) {
-    // var { name, email, password } = req.body;
-    // var errors = [];
+    var { name } = req.body;
+    var errors = [];
     
-    // if (!name) {
-    //     errors.push('Por favor, escribe un nombre.');
-    // } // end if
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
+    } // end if
 
-    // if (!email) {
-    //     errors.push('Por favor, escribe un correo.');
-    // } // end if
+    if (errors.length > 0) {
+        return res.render('updateUserAdmin', {
+            title: 'Modificar usuario',
+            users: [],
+            errors
+        });
+    } // end if
 
-    // if (!password) {
-    //     errors.push('Por favor, escribe una contraseña.');
-    // } // end if
-
-    // console.log('Estos son', errors);
-    // if (errors.length > 0) {
-    //     return res.render('createUserAdmin', {
-    //         title: 'Crear usuario',
-    //         errors
-    //     });
-    // } // end if
-
-    User.findByIdAndUpdate({ _id: req.body.id }, { name: req.body.name, email: req.body.email, password: req.body.password }, function(err, user) {
-        if (!user) {
-            return res.status(400).send({ msg: 'El id no existe.' });
+    User.find({ name }, function(err, users) {
+        if (err) {
+            return res.send('errors', err);
         } // end if
 
-        res.send({ msg: 'Un usuario ha sido actualizado\n\n' + user });
-    }); // end findOne
+        res.render('updateUserAdmin', {
+            title: 'Modificar usuario',
+            users,
+            errors
+        });
+    });
 }; // end updateUser
+
+AdminController.findToUpdate = function(req, res) {
+    var id = req.params.id;
+    console.log(id);
+    
+    User.findById({ _id: id }, function(err, user) {
+        if (err) {
+            return res.send(err);
+        } // end if
+
+        res.render('update', {
+            title: 'Modificar usuario',
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            errors: []
+        });
+    });
+}; // end update
+
+AdminController.update = function(req, res) {
+    var { id, name, email, password } = req.body;
+    var errors = [];
+    
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
+    } // end if
+
+    if (!email) {
+        errors.push('Por favor, escribe un correo.');
+    } // end if
+
+    if (!password) {
+        errors.push('Por favor, escribe una contraseña.');
+    } // end if
+
+    if (errors.length > 0) {
+        return res.render('update', {
+            title: 'Modificar usuario',
+            id,
+            name,
+            email,
+            errors
+        });
+    } // end if
+
+    User.findByIdAndUpdate({ _id: id }, { name, email, password }, function(err, user) {
+        if (err) {
+            return res.send(err);
+        } // end if
+
+        res.render('menuAdmin', {
+            title: 'Menú',
+            msg: 'Usuario modificado correctamente'
+        });
+
+        console.log('\nUser updated:\n\n' + user + '\n');
+    }); // end findByIdAbdUpdate
+} // end update
 
 // eliminar usuario
 AdminController.deleteUser = function(req, res) {
@@ -129,16 +184,6 @@ AdminController.deleteUser = function(req, res) {
     User.find({ name }, function(err, users) {
         if (err) {
             return res.send(err);
-        } // end if
-
-        if (users == []) {
-            errors.push('El correo no existe.')
-      
-            return res.status(400).render('deleteUserAdmin', {
-                title: 'Eliminar usuario',
-                users,
-                errors
-            });
         } // end if
 
         res.render('deleteUserAdmin', {
@@ -184,16 +229,6 @@ AdminController.findUser = function(req, res) {
         if (err) {
             return res.send(err);
         } // end if
-        
-        // if (users == []) {
-        //     console.log('Entró');
-        //     errors.push('El usuario no existe');
-        //     return res.render('findUserAdmin', {
-        //         title: 'Buscar usuario',
-        //         users,
-        //         errors
-        //     });
-        // } // end if
 
         res.render('findUserAdmin', {
             title: 'Buscar usuario',

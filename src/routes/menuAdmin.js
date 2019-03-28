@@ -13,8 +13,10 @@ router.get('/createUserAdmin', function(req, res) {
 });
 
 router.get('/updateUserAdmin', function(req, res) {
-    res.render('updateUserAdmin', { title: 'Modificar usuario', errors: [] });
+    res.render('updateUserAdmin', { title: 'Modificar usuario', users: [], errors: [] });
 });
+
+router.get('/updateUserAdmin/update/:id', adminController.findToUpdate);
 
 router.get('/deleteUserAdmin', function(req, res) {
     res.render('deleteUserAdmin', { title: 'Eliminar usuario', users: [], errors: [] });
@@ -29,6 +31,7 @@ router.get('/findUserAdmin', function(req, res) {
 // POST
 router.post('/createUserAdmin', adminController.createUser);
 router.post('/updateUserAdmin', adminController.updateUser);
+router.post('/updateUserAdmin/update', adminController.update);
 router.post('/deleteUserAdmin', adminController.deleteUser);
 router.post('/findUserAdmin', adminController.findUser);
 
