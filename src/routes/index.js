@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var userController = require('../controllers/userController')
+var passport = require('passport');
+
+var userController = require('../controllers/userController');
 
 // GET
 router.get('/', function(req, res) {
@@ -9,15 +11,50 @@ router.get('/', function(req, res) {
 });
 
 router.get('/logIn', function(req, res) {
-  res.render('logIn', { title: 'Iniciar sesión' });
-})
-
-router.get('/signUp', function(req, res) {
-  res.render('signUp', { title: 'Registrarse', errors: [] });
+  res.render('logIn', { title: 'Iniciar sesión', message: req.flash('logInMessage') });
 });
 
+router.get('/superLogIn', function(req, res) {
+  res.render('superLogIn', { title: 'Iniciar sesión', message: req.flash('logInMessage') });
+});
+
+router.get('/signUp', function(req, res) {
+  res.render('signUp', { title: 'Registrarse', message: req.flash('signUpMessage') });
+});
+
+router.get('/userProfile', isAuthenticated, function(req, res) {
+  res.render('userProfile', { title: 'Perfil' });
+});
+
+router.get('/logOut', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+function isAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  } // end if
+  res.redirect('/logIn');
+} // end isAuthenticate
+
 // POST
-router.post('/logIn', userController.validateUser);
-router.post('/signUp', userController.createUser);
+router.post('/logIn', passport.authenticate('local-login', {
+  successRedirect: '/userProfile',
+  failureRedirect: '/logIn',
+  passReqToCallback: true
+}));
+
+router.post('/superLogIn', passport.authenticate('local-login-admin', {
+  successRedirect: '/menuAdmin',
+  failureRedirect: '/superLogIn',
+  passReqToCallback: true
+}));
+
+router.post('/signUp', passport.authenticate('local-signup', {
+  successRedirect: '/userProfile',
+  failureRedirect: '/signUp',
+  passReqToCallback: true
+}));
 
 module.exports = router;

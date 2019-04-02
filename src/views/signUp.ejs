@@ -10,7 +10,7 @@
 <body class="bg-main">
     <% include partials/navbarUser %>
     <div class="container col-4">
-        <% errors.forEach (text => { %>
+        <% message.forEach (text => { %>
             <div class="alert alert-danger mt-3">
                 <%= text %>
             </div>
