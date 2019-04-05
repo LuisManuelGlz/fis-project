@@ -10,8 +10,7 @@ var sassMiddleware = require('node-sass-middleware');
 // initializations
 var app = express();
 var { mongoose } = require('./config/database/database');
-require('./config/passport/local-auth-user');
-require('./config/passport/local-auth-admin');
+require('./config/passport/local-auth');
 
 // settings
 app.set('port', process.env.PORT || 3000);
@@ -24,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(session({
-  secret: 'thisismysecret',
+  secret: 'key',
   resave: false,
   saveUninitialized: false
 }));
@@ -40,10 +39,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
-app.use('/', require('./routes/index'));                      // user
-app.use('/confirmation', require('./routes/confirmation'));
+app.use('/', require('./routes/indexUser'));              // user
+app.use('/indexAdmin', require('./routes/indexAdmin'));   // admin
 
-app.use('/menuAdmin', require('./routes/menuAdmin'));               // admin
 
 // server
 app.listen(app.get('port'), function() {

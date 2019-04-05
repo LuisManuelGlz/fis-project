@@ -20,7 +20,7 @@
                 <h2><%= title %></h2>
             </div>
             <div class="card-body">
-                <form action="/menuAdmin/deleteUserAdmin" method="post">
+                <form action="/indexAdmin/menuAdmin/deleteUserAdmin" method="post">
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" name="name" id="name">
@@ -49,7 +49,7 @@
                             <td><%= users[i].name %></td>
                             <td><%= users[i].email %></td>
                             <td>
-                                <a class="btn btn-danger" href="/menuAdmin/deleteUserAdmin/delete/<%= users[i]._id %>">Eliminar</a>
+                                <a class="btn btn-danger" href="/indexAdmin/menuAdmin/deleteUserAdmin/delete/<%= users[i]._id %>">Eliminar</a>
                             </td>
                         </tr>
                     <% } %>

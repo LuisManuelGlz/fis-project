@@ -9,7 +9,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
     Admin.findById(id, function(err, user) {
-        done(err, user);
+            done(err, user);
     });
 });
 

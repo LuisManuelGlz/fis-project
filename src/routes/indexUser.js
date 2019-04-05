@@ -7,15 +7,11 @@ var userController = require('../controllers/userController');
 
 // GET
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Inicio', msg: '' });
+  res.render('indexUser', { title: 'Inicio', msg: '' });
 });
 
 router.get('/logIn', function(req, res) {
   res.render('logIn', { title: 'Iniciar sesión', message: req.flash('logInMessage') });
-});
-
-router.get('/superLogIn', function(req, res) {
-  res.render('superLogIn', { title: 'Iniciar sesión', message: req.flash('logInMessage') });
 });
 
 router.get('/signUp', function(req, res) {
@@ -42,12 +38,6 @@ function isAuthenticated(req, res, next) {
 router.post('/logIn', passport.authenticate('local-login', {
   successRedirect: '/userProfile',
   failureRedirect: '/logIn',
-  passReqToCallback: true
-}));
-
-router.post('/superLogIn', passport.authenticate('local-login-admin', {
-  successRedirect: '/menuAdmin',
-  failureRedirect: '/superLogIn',
   passReqToCallback: true
 }));
 
