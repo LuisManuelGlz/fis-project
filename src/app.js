@@ -5,6 +5,7 @@ var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
+var SocketIO = require('socket.io');
 var sassMiddleware = require('node-sass-middleware');
 
 // initializations
@@ -42,8 +43,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/indexUser'));              // user
 app.use('/indexAdmin', require('./routes/indexAdmin'));   // admin
 
-
 // server
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
   console.log('Server listening at port', app.get('port'));
+});
+
+// websockets
+var io = SocketIO(server);
+
+io.on('connection', function(socket) {
+  console.log('\nNew connection from socket:', socket.id, '\n');
+  
+  socket.on('user:data', function(data) {
+    io.sockets.emit('user:data', data);
+  });
+
+  socket.on('user:getData', function() {
+    io.sockets.emit('user:getData');
+  });
+
+  socket.on('disconnect', function() {
+    console.log('\nDisconnection from socket:', socket.id, '\n');
+    io.sockets.emit('disconnect');
+  });
+
+  // borrar después
+  socket.on('user:clean', function() {
+    socket.emit('user:clean', {
+      id: '',
+      name: '',
+      email: '',
+      password: ''
+  });
+  })
 });

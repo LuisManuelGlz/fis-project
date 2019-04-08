@@ -7,7 +7,25 @@
     <title><%= title %> | ITT</title>
     <% include partials/head %>
 </head>
-<body>
+<body class="bg-main">
     <% include partials/navbarUser %>
+    <div class="container mt-3">
+        <div class="card bg-light">
+            <div class="card-header text-center">
+                <h2><%= title %></h2>
+            </div>
+            <div class="card-body p-5">
+                <strong>Id: </strong><label id="id"><%= user._id %></label>
+                <br>
+                <strong>Nombre: </strong><label id="name"><%= user.name %></label>
+                <br>
+                <strong>Correo: </strong><label id="email"><%= user.email %></label>
+                <br>
+                <strong>Contrase&ntilde;a (encriptada): </strong><label id="password"><%= user.password %></label>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="javascripts/connection.js"></script>
 </body>
 </html>

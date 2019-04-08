@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title%> | ITT</title>
+    <% include partials/head %>
+</head>
+<body class="bg-admin">
+    <% include partials/navbarAdmin %>
+
+    <div class="container-fluid mt-3">
+        <h1 class="text-center"><%= title %></h1>
+        <hr>
+        <div class="container">
+            <div class="row justify-content-center">
+                <% for(var i=0; i<3; i++) { %>
+                    <div class="card m-2" style="width: 18rem;">
+                        <img class="card-img-top" id="screen-<%= i + 1 %>" src="../../images/<%= screenColor %>.jpg" width="300" height="150" alt="Aquí debería de ir una imagen"></img>
+                        <div class="card-img-overlay text-center">
+                            <h5 class="card-title" id="name1">Libre</h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Equipo <%= i + 1 %></h5>
+                            <p class="card-text">
+                                <strong>Id: </strong><label id="id"></label>
+                                </br>
+                                <strong>Nombre: </strong><label id="name2"></label>
+                                </br>
+                                <strong>Correo: </strong><label id="email"></label>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/getUserConnection.js"></script>
+</body>
+</html>

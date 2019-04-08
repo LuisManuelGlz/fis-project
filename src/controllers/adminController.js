@@ -3,29 +3,14 @@ var User = require('../models/user');
 
 var AdminController = {};
 
-// log-in del admin
-AdminController.validateAdmin = function(req, res) {
-    Admin.findOne({ username: req.body.email }, function(err, admin) {
-        if (!admin) {
-            return res.status(401).send({ msg: 'El nombre de usuario no existe.' });
-        } // end if
-
-        if (req.body.password != admin.password) {
-            return res.status(401).send({ msg: 'Usuario o contraseña son inválidos.' })
-        } // end if
-
-        res.render('menuAdmin', {});
-    }); // end findOne
-}; // end validateAdmin
-
-// 
-// CRUD
-// 
-
 // crear usuario
 AdminController.createUser = function(req, res) {
-    var { email, password } = req.body;
+    var { name, email, password } = req.body;
     var errors = [];
+
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
+    } // end if
 
     if (!email) {
         errors.push('Por favor, escribe un correo.');
@@ -52,8 +37,11 @@ AdminController.createUser = function(req, res) {
         } // end if
 
         // creamos y guardamos el usuario
-        user = new User({ email, password });
-        user.save(function(err) {
+        newUser = new User({});
+        newUser.name = name;
+        newUser.email = email;
+        newUser.password = newUser.generateNewEncryptPassword(password);
+        newUser.save(function(err) {
             if (err) {
                 errors.push(err);
                 return res.status(500).send('errors', {
@@ -66,18 +54,19 @@ AdminController.createUser = function(req, res) {
                 msg: 'Usuario creado correctamente.'
             });
 
-            console.log('\nUser inserted:\n\n' + user + '\n');
+            console.log('\nUser inserted:\n\n' + newUser + '\n');
         }); // end save
     }); // end findOne
 }; // end createUser
 
 // actualizar usuario
 AdminController.updateUser = function(req, res) {
-    var { email } = req.body;
+    var { name } = req.body;
     var errors = [];
+    console.log(name);
     
-    if (!email) {
-        errors.push('Por favor, escribe un correo.');
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
     } // end if
 
     if (errors.length > 0) {
@@ -88,7 +77,7 @@ AdminController.updateUser = function(req, res) {
         });
     } // end if
 
-    User.find({ email }, function(err, users) {
+    User.find({ name }, function(err, users) {
         if (err) {
             return res.send('errors', err);
         } // end if
@@ -113,6 +102,7 @@ AdminController.findToUpdate = function(req, res) {
         res.render('update', {
             title: 'Modificar usuario',
             id: user._id,
+            name: user.name,
             email: user.email,
             errors: []
         });
@@ -120,9 +110,13 @@ AdminController.findToUpdate = function(req, res) {
 }; // end update
 
 AdminController.update = function(req, res) {
-    var { id, email, password } = req.body;
+    var { id, name, email, password } = req.body;
     var errors = [];
     
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
+    } // end if
+
     if (!email) {
         errors.push('Por favor, escribe un correo.');
     } // end if
@@ -135,12 +129,21 @@ AdminController.update = function(req, res) {
         return res.render('update', {
             title: 'Modificar usuario',
             id,
+            name,
             email,
             errors
         });
     } // end if
+    
+    User.findById({ _id: id }, function(err, user) {
+        if (err) {
+            return res.send(err);
+        } // end if
 
-    User.findByIdAndUpdate({ _id: id }, { email, password }, function(err, user) {
+        password = user.generateNewEncryptPassword(password);
+    });
+
+    User.findByIdAndUpdate({ _id: id }, { name, email, password }, function(err, user) {
         if (err) {
             return res.send(err);
         } // end if
@@ -156,11 +159,11 @@ AdminController.update = function(req, res) {
 
 // eliminar usuario
 AdminController.deleteUser = function(req, res) {
-    var { email } = req.body;
+    var { name } = req.body;
     var errors = [];
 
-    if (!email) {
-        errors.push('Por favor, escribe un correo.');
+    if (!name) {
+        errors.push('Por favor, escribe un nombre.');
     } // end if
 
     if (errors.length > 0) {
@@ -171,7 +174,7 @@ AdminController.deleteUser = function(req, res) {
         });
     } // end if
 
-    User.find({ email }, function(err, users) {
+    User.find({ name }, function(err, users) {
         if (err) {
             return res.send(err);
         } // end if
@@ -188,7 +191,7 @@ AdminController.delete = function(req, res) {
     var id = req.params.id;
 
     User.remove({ _id: id }, function() {
-        res.redirect('/menuAdmin');
+        res.redirect('/indexAdmin/menuAdmin');
 
         // console.log('\nUser deleted:\n\n' + user + '\n')
     });
@@ -196,11 +199,11 @@ AdminController.delete = function(req, res) {
 
 // buscar usuario
 AdminController.findUser = function(req, res) {
-    var { email } = req.body;
+    var { name } = req.body;
     var errors = [];
 
     // si el admin no escribe algo
-    if (!email) {
+    if (!name) {
         User.find({ }, function(err, users) {
             if (err) {
                 return res.send(err);
@@ -215,7 +218,7 @@ AdminController.findUser = function(req, res) {
     } // end if
 
     // si el admin escribe algo
-    User.find({ email }, function(err, users) {
+    User.find({ name }, function(err, users) {
         if (err) {
             return res.send(err);
         } // end if

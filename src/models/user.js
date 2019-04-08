@@ -13,7 +13,8 @@ var userSchema = {
 var userData = new Schema(userSchema);
 
 userData.methods.generateNewEncryptPassword = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(16)); // hash de 16 vueltas
+    // hash de 10 vueltas, entre más vueltas dé, más lenta será la autenticación
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }; // end encryptPassword
 
 userData.methods.compareEncryptedPasswordWithUserPassword = function(password) {

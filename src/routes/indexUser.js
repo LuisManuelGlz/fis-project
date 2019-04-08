@@ -19,7 +19,7 @@ router.get('/signUp', function(req, res) {
 });
 
 router.get('/userProfile', isAuthenticated, function(req, res) {
-  res.render('userProfile', { title: 'Perfil' });
+  res.render('userProfile', { title: 'Perfil', user: req.user });
 });
 
 router.get('/logOut', function(req, res) {

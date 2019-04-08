@@ -26,7 +26,7 @@ router.get('/menuAdmin/updateUserAdmin', isAdminAuthenticated, function(req, res
     res.render('updateUserAdmin', { title: 'Modificar usuario', users: [], errors: [] });
 });
 
-router.get('/menuAdmin/updateUserAdmin/update/:id', adminController.findToUpdate);
+router.get('/menuAdmin/updateUserAdmin/update/:id', isAdminAuthenticated, adminController.findToUpdate);
 
 router.get('/menuAdmin/deleteUserAdmin', isAdminAuthenticated, function(req, res) {
     res.render('deleteUserAdmin', { title: 'Eliminar usuario', users: [], errors: [] });
@@ -38,6 +38,10 @@ router.get('/menuAdmin/findUserAdmin', isAdminAuthenticated, function(req, res) 
     res.render('findUserAdmin', { title: 'Buscar usuario', users: [], errors: [] });
 });
 
+router.get('/menuAdmin/freeComputersAdmin', /*isAdminAuthenticated,*/ function(req, res) {
+    res.render('freeComputersAdmin', {title: 'Equipos disponibles', screenColor: 'gray'});
+});
+
 router.get('/menuAdmin/logOut', function(req, res) {
     req.logout();
     res.redirect('/indexAdmin/superLogIn');
@@ -45,11 +49,8 @@ router.get('/menuAdmin/logOut', function(req, res) {
 
 function isAdminAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
-        console.log('hola');
         return next();
-        
     } // end if
-    console.log('adios');
     
     res.redirect('/indexAdmin/superLogIn');
 } // end isAuthenticate
