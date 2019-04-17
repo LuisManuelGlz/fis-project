@@ -4,20 +4,17 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../models/user');
 var Admin = require('../../models/admin');
 
-var userType;
-
 passport.serializeUser(function(user, done) {
-    userType = user.type;
-    done(null, user.id);
+    done(null, user);
 });
 
-passport.deserializeUser(function(id, done) {    
-    if (userType == 'user') {
-        User.findById(id, function(err, user) {
-                return done(err, user);
+passport.deserializeUser(function(user, done) {    
+    if (user.type == 'user') { // se pierde la serialización <-- importante
+        User.findById(user._id, function(err, user) {
+            return done(err, user);
         });
     } else {
-        Admin.findById(id, function(err, user) {    
+        Admin.findById(user._id, function(err, user) {    
             return done(err, user);
         });
     } // end if

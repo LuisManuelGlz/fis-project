@@ -38,25 +38,25 @@ router.get('/menuAdmin/findUserAdmin', isAdminAuthenticated, function(req, res) 
     res.render('findUserAdmin', { title: 'Buscar usuario', users: [], errors: [] });
 });
 
-router.get('/menuAdmin/freeComputersAdmin', /*isAdminAuthenticated,*/ function(req, res) {
+router.get('/menuAdmin/freeComputersAdmin', isAdminAuthenticated, function(req, res) {
     res.render('freeComputersAdmin', {title: 'Equipos disponibles', screenColor: 'gray'});
 });
 
 router.get('/menuAdmin/logOut', function(req, res) {
     req.logout();
-    res.redirect('/indexAdmin/superLogIn');
+    res.redirect('/');
 });
 
 function isAdminAuthenticated(req, res, next) {
-    if(req.isAuthenticated()) {
+    if(req.isAuthenticated() && req.user.type == 'admin') {
         return next();
     } // end if
-    
     res.redirect('/indexAdmin/superLogIn');
-} // end isAuthenticate
+} // end isAdminAuthenticate
 
 // POST
 router.post('/superLogIn', passport.authenticate('local-login-admin', {
+    // session: false,
     successRedirect: '/indexAdmin/menuAdmin',
     failureRedirect: '/indexAdmin/superLogIn',
     passReqToCallback: true

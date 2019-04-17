@@ -62,18 +62,8 @@ io.on('connection', function(socket) {
     io.sockets.emit('user:getData');
   });
 
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function(data) {
     console.log('\nDisconnection from socket:', socket.id, '\n');
     io.sockets.emit('disconnect');
   });
-
-  // borrar después
-  socket.on('user:clean', function() {
-    socket.emit('user:clean', {
-      id: '',
-      name: '',
-      email: '',
-      password: ''
-  });
-  })
 });

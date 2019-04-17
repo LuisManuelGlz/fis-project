@@ -1,8 +1,10 @@
 .bg-main {
+  height: 100vh;
   background: url(../images/bg-main.jpg);
   background-size: cover; }
 
 .bg-admin {
+  height: 100vh;
   background: url(../images/bg-admin-2.jpg);
   background-size: cover; }
 

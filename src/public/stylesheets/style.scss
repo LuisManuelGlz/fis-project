@@ -1,11 +1,15 @@
 @import 'config/config';
 
 .bg-main {
+    height: 100vh;
+    // background: linear-gradient(#4CB8C4, #3CD3AD);
     background: url(../images/bg-main.jpg);
     background-size: cover;
 }
 
 .bg-admin {
+    height: 100vh;
+    // background: linear-gradient(#BBD2C5, #536976, #292E49);
     background: url(../images/bg-admin-2.jpg);
     background-size: cover;
 }
