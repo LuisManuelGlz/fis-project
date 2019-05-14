@@ -3,8 +3,6 @@ var router = express.Router();
 
 var passport = require('passport');
 
-var userController = require('../controllers/userController');
-
 // GET
 router.get('/', function(req, res) {
   res.render('indexUser', { title: 'Inicio', msg: '' });

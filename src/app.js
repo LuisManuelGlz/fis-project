@@ -62,7 +62,7 @@ io.on('connection', function(socket) {
     io.sockets.emit('user:getData');
   });
 
-  socket.on('disconnect', function(data) {
+  socket.on('disconnect', function() {
     console.log('\nDisconnection from socket:', socket.id, '\n');
     io.sockets.emit('disconnect');
   });

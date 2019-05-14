@@ -2,12 +2,15 @@ var mongoose = require('mongoose');
 
 var URI = 'mongodb://localhost/fis-app-db';
 
-mongoose.connect(URI, function(err) {
-    if (err) {
-        console.log('Database error: ' + err);
-    } else {
-        console.log('Database is connected :D');
-    } // end if
-}); // end connect
+mongoose.connect(URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+})
+.then(function() {
+    console.log('Database is connected :D');
+})
+.catch(function(err) {
+    console.log('Database error: ' + err);
+});
 
 module.exports = mongoose;
