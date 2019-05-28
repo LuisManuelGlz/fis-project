@@ -44,7 +44,7 @@ passport.use('local-signup', new LocalStrategy({
         .catch(function(err) {
             return done(err);
         });
-    }));
+}));
 
 passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
@@ -80,7 +80,7 @@ passport.use('local-login-admin', new LocalStrategy({
                 return done(null, false, req.flash('logInMessage', 'El administrador ' + username + ' no existe'));
             }
 
-            if (userAdmin.password != password) {
+            if (!userAdmin.compareEncryptedPasswordWithUserPassword(password)) {
                 return done(null, false, req.flash('logInMessage', 'Contraseña incorrecta'));
             }
 

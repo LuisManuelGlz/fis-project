@@ -22,6 +22,10 @@ router.get('/menuAdmin/createUserAdmin', isAdminAuthenticated, function(req, res
     res.render('createUserAdmin', { title: 'Crear usuario', errors: [] });
 });
 
+router.get('/menuAdmin/createSuperUserAdmin', isAdminAuthenticated, function(req, res) {
+    res.render('createSuperUserAdmin', { title: 'Crear administrador', errors: [] });
+});
+
 router.get('/menuAdmin/updateUserAdmin', isAdminAuthenticated, function(req, res) {
     res.render('updateUserAdmin', { title: 'Modificar usuario', users: [], errors: [] });
 });
@@ -62,6 +66,7 @@ router.post('/superLogIn', passport.authenticate('local-login-admin', {
     passReqToCallback: true
 }));
 router.post('/menuAdmin/createUserAdmin', adminController.createUser);
+router.post('/menuAdmin/createSuperUserAdmin', adminController.createSuperUser);
 router.post('/menuAdmin/updateUserAdmin', adminController.updateUser);
 router.post('/menuAdmin/updateUserAdmin/update', adminController.update);
 router.post('/menuAdmin/deleteUserAdmin', adminController.deleteUser);

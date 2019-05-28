@@ -63,6 +63,61 @@ AdminController.createUser = function(req, res) {
         });
 }; // end createUser
 
+// crear super usuario
+AdminController.createSuperUser = function(req, res) {
+    var { username, password } = req.body;
+    var errors = [];
+
+    if (!username) {
+        errors.push('Por favor, escribe un nombre de usuario.');
+    } // end if
+
+    if (!password) {
+        errors.push('Por favor, escribe una contraseña.');
+    } // end if
+
+    if (errors.length > 0) {
+        return res.render('createSuperUserAdmin', {
+            title: 'Crear administrador',
+            errors
+        });
+    } // end if
+    
+    Admin.findOne({ username })
+        .then(function(superuser) {
+            if (superuser) {
+                errors.push('El usuario introducido ya existe.');
+                return res.status(400).render('createSuperUserAdmin', { 
+                    title: 'Crear administrador', 
+                    errors
+                });
+            }
+
+            // creamos y guardamos el usuario
+            newSuperUser = new Admin({});
+            newSuperUser.username = username;
+            newSuperUser.password = newSuperUser.generateNewEncryptPassword(password);
+            
+            return newSuperUser.save();
+        }).then(function() {
+            res.render('menuAdmin', {
+                title: 'Menú',
+                msg: 'Administrador creado correctamente.'
+            });
+
+            console.log('\nAdmin inserted:\n\n' + newUser + '\n');
+        })
+        .catch(function(err) {
+            if (err) {
+                errors.push(err);
+                return res.status(500).send('errors', {
+                    title: 'Error',
+                    errors
+                });
+            }
+        });
+}; // end createSuperUser
+
 // actualizar usuario
 AdminController.updateUser = function(req, res) {
     var { name } = req.body;
