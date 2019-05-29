@@ -62,7 +62,7 @@ AdminController.createUser = function(req, res) {
             }
         });
 }; // end createUser
-
+// a g daría lo que fuera por fallarte otros 4 meses y medio
 // crear super usuario
 AdminController.createSuperUser = function(req, res) {
     var { username, password } = req.body;
