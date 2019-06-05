@@ -261,9 +261,9 @@ AdminController.findUser = function(req, res) {
 
     // si el admin no escribe algo
     if (!name) {
-        User.find({ })
+        User.find()
             .then(function(users) {
-                res.render('findUserAdmin', {
+                return res.render('findUserAdmin', {
                     title: 'Buscar usuario',
                     users,
                     errors
@@ -272,20 +272,21 @@ AdminController.findUser = function(req, res) {
             .catch(function(err) {
                 return res.send(err);
             });
+    } else {
+        // si el admin escribe algo
+        User.find({ name })
+        .then(function(users) {
+            return res.render('findUserAdmin', {
+                title: 'Buscar usuario',
+                users,
+                errors
+            });
+        })
+        .catch(function(err) {
+            return res.send(err);
+        });
     } // end if
 
-    // si el admin escribe algo
-    User.find({ name })
-    .then(function(users) {
-        res.render('findUserAdmin', {
-            title: 'Buscar usuario',
-            users,
-            errors
-        });
-    })
-    .catch(function(err) {
-        return res.send(err);
-    });
 }; // end findUSer
 
 module.exports = AdminController;
